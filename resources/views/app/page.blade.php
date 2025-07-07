@@ -7,5 +7,5 @@
 </div>
 
 @section('content')
-@include('Compement.dahbord',[['Stocks' => $Stocks],['materiel_stock' => $materiel_stock],['stock_entree' => $stock_entree],['stocksorti' => $stocksorti],['employer_quantite' => $employer_quantite]])
+@include('Compement.dahbord',[  ['Stock' => $Stock] , ['Materiel' => $Materiel]   ,['Employer' => $Employer] ,   ['Stocks' => $Stocks],['materiel_stock' => $materiel_stock],['stock_entree' => $stock_entree],['stocksorti' => $stocksorti],['employer_quantite' => $employer_quantite]])
 @endsection

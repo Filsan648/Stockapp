@@ -33,12 +33,12 @@
   </script>
   <title>Matériel</title>
 </head>
-<body class="min-h-screen bg-gradient-to-br from-blue-50 to-gray-100 font-sans">
+<body class="min-h-screen bg-black font-sans">
 
   <div class="w-full max-w-4xl mx-auto p-6 lg:p-10">
-    <div class="bg-white rounded-3xl shadow-xl overflow-hidden transition-all duration-300 hover:shadow-2xl">
-      <div class="bg-gradient-to-r from-primary-600 to-primary-700 p-6">
-        <h1 class="text-3xl font-bold text-center text-white">Gestion des Matériels</h1>
+    <div class="bg-white border border-black rounded-3xl  overflow-hidden transition-all duration-300 ">
+      <div class=" p-6">
+        <h1 class="text-3xl font-bold text-center  ">Gestion des Matériels</h1>
       </div>
 
       <div class="p-8">
@@ -48,23 +48,23 @@
             <div class="animate-fade-in">
               <label class="block text-gray-700 font-medium mb-2">Matériel</label>
               <input type="text" name="Materiel" placeholder="Ex: Gant"
-                     class="w-full px-4 py-3 border border-gray-300 rounded-lg bg-secondary-100 focus:outline-none focus:ring-2 focus:ring-primary-600 focus:border-transparent transition duration-300" />
+                     class="w-full px-4 py-3 border border-gray-300 rounded-lg bg-blue-50/60  focus:outline-none " />
             </div>
 
             <div class="animate-fade-in">
               <label class="block text-gray-700 font-medium mb-2">Quantité</label>
               <input type="number" name="quantite" placeholder="Ex: 5"
-                     class="w-full px-4 py-3 border border-gray-300 rounded-lg bg-secondary-100 focus:outline-none focus:ring-2 focus:ring-primary-600 focus:border-transparent transition duration-300" />
+                     class="w-full px-4 py-3 border border-gray-300 rounded-lg bg-blue-50/60 focus:outline-none " />
             </div>
             <div class="animate-fade-in">
                 <label class="block text-gray-700 font-medium mb-2">Date</label>
                 <input type="date" name="date" placeholder="Ex: 5"
-                       class="w-full px-4 py-3 border border-gray-300 rounded-lg bg-secondary-100 focus:outline-none focus:ring-2 focus:ring-primary-600 focus:border-transparent transition duration-300" />
+                       class="w-full px-4 py-3 border border-gray-300 rounded-lg bg-blue-50/60 focus:outline-none " />
               </div>
           </div>
 
           <div class="flex justify-end pt-4">
-            <button type="submit" class="bg-primary-600 hover:bg-primary-700 text-white font-semibold py-3 px-8 rounded-lg transition duration-300 transform hover:scale-105 shadow-md">
+            <button type="submit" class="bg-black hover:bg-blue-300 text-white font-semibold py-3 px-8 rounded-lg transition duration-300 transform hover:scale-105 shadow-md">
               Enregistrer
             </button>
           </div>
@@ -91,12 +91,12 @@
                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ $materie->quantite }}</td>
                     <td class="px-6 py-4 whitespace-nowrap text-sm">
                       <div class="flex space-x-2">
-                        <button class="text-blue-600 hover:text-blue-800 transition duration-300">
+                        <button class="text-black/60 hover:text-blue-300 transition duration-300">
                           <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                             <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" />
                           </svg>
                         </button>
-                        <button class="text-red-600 hover:text-red-800 transition duration-300">
+                        <button class="text-black/60 hover:text-blue-300 transition duration-300">
                           <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                             <path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd" />
                           </svg>

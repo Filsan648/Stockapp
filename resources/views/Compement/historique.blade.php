@@ -43,14 +43,21 @@
 </head>
 <body class="bg-gray-50">
   <div class="container mx-auto px-4 py-8">
-    <h1 class="text-3xl font-bold text-primary-700 mb-8 text-center animate-fade-in">Gestion des Mouvements de Matériel</h1>
+    <h1 class="text-3xl font-bold  mb-8 text-center animate-fade-in">Gestion des Mouvements de Matériel</h1>
 
-    <div class="bg-white rounded-lg shadow-md overflow-hidden animate-fade-in">
+    <div class="bg-white rounded-lg shadow-md overflow-hidden border border-black animate-fade-in">
       <div class="overflow-x-auto">
         <table class="min-w-full divide-y divide-gray-200">
-          <thead class="bg-primary-600 text-white">
+          <thead class="  ">
             <tr>
-              <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Type de mouvement</th>
+              <th id="mouvement" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Type de mouvement</th>
+            <div class=" text-xs font-mono text-black/60">
+<div>
+  Sorti
+</div><div>
+  Entree
+</div>
+        </div>
               <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Matériel</th>
               <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Quantité</th>
               <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Employé</th>
@@ -59,8 +66,8 @@
           </thead>
           <tbody class="bg-white divide-y divide-gray-200">
             @foreach ($stock as $stoc)
-            <tr class="@if($stoc->typestock === 'entree') bg-entree-100 hover:bg-green-200 @else bg-sortie-100 hover:bg-red-200 @endif transition-colors duration-150">
-              <td class="px-6 py-4 whitespace-nowrap text-sm font-medium @if($stoc->typestock === 'entree') text-entree-500 @else text-sortie-500 @endif">
+            <tr class="@if($stoc->typestock === 'entree')  @else  @endif transition-colors duration-150">
+              <td class="px-6 py-4 whitespace-nowrap text-sm font-medium @if($stoc->typestock === 'entree') text-black @else @endif">
                 {{ ucfirst($stoc->typestock) }}
                 @if($stoc->typestock === 'entree')
                   <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 inline ml-1" viewBox="0 0 20 20" fill="currentColor">
@@ -73,10 +80,12 @@
                 @endif
               </td>
               <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{{$stoc->materiel}}</td>
-              <td class="px-6 py-4 whitespace-nowrap text-sm font-medium @if($stoc->typestock === 'entree') text-entree-500 @else text-sortie-500 @endif">
+              <td class="px-6 py-4 whitespace-nowrap text-sm font-medium ">
                 {{$stoc->quantite}}
               </td>
-              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{{$stoc->nom_employer}}</td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700"> @if($stoc->nom_employer == "null") --
+                @else
+                {{$stoc->nom_employer}} @endif</td>
               <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{{$stoc->date}}</td>
             </tr>
             @endforeach

@@ -35,80 +35,51 @@
   </script>
   <title>Gestion des Employés</title>
 </head>
-<body class="min-h-screen bg-gradient-to-br from-gray-50 to-blue-50 font-sans">
+<body class="min-h-screen bg-black font-sans">
   <div class="container mx-auto px-4 py-12 flex justify-center">
     <div class="w-full max-w-4xl">
       <!-- Carte principale -->
-      <div class="bg-white rounded-3xl shadow-xl overflow-hidden transition-all duration-300 hover:shadow-2xl">
-        <!-- En-tête avec fond gradient -->
-        <div class="bg-gradient-to-r from-primary-600 to-primary-700 p-8 text-center">
-          <h1 class="text-4xl font-bold text-white animate-float">Ajouter un Employé</h1>
-          <p class="text-blue-100 mt-2">Renseignez les informations du nouvel employé</p>
+      <div class="bg-white rounded-3xl shadow-xl overflow-hidden transition-all duration-300 border border-black ">
+
+        <div class=" p-8 text-center">
+          <h1 class="text-4xl font-bold  ">Ajouter un Employé</h1>
+
         </div>
-
-        <!-- Contenu du formulaire -->
-        <div class="p-8">
-          <form class="space-y-8" action="{{ route('employer_post') }}" method="POST">
-            @csrf
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <!-- Champ Nom -->
-              <div class="animate-fade-in">
-                <label class="block text-gray-700 font-medium mb-2 flex items-center">
-                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-primary-600" viewBox="0 0 20 20" fill="currentColor">
-                    <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd" />
-                  </svg>
-                  Nom de l'employé
-                </label>
-                <input type="text" name="nom" required
-                       class="w-full px-4 py-3 border border-gray-300 rounded-lg bg-primary-50 focus:outline-none focus:ring-2 focus:ring-primary-600 focus:border-transparent transition duration-300 placeholder-gray-400"
-                       placeholder="Ex: Jean Dupont">
-              </div>
-
-              <!-- Champ Fonction -->
-              <div class="animate-fade-in" style="animation-delay: 0.1s">
-                <label class="block text-gray-700 font-medium mb-2 flex items-center">
-                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-primary-600" viewBox="0 0 20 20" fill="currentColor">
-                    <path fill-rule="evenodd" d="M6 6V5a3 3 0 013-3h2a3 3 0 013 3v1h2a2 2 0 012 2v3.57A22.952 22.952 0 0110 13a22.95 22.95 0 01-8-1.43V8a2 2 0 012-2h2zm2-1a1 1 0 011-1h2a1 1 0 011 1v1H8V5zm1 5a1 1 0 011-1h.01a1 1 0 110 2H10a1 1 0 01-1-1z" clip-rule="evenodd" />
-                    <path d="M2 13.692V16a2 2 0 002 2h12a2 2 0 002-2v-2.308A24.974 24.974 0 0110 15c-2.796 0-5.487-.46-8-1.308z" />
-                  </svg>
-                  Fonction
-                </label>
-                <input type="text" name="fonction" required
-                       class="w-full px-4 py-3 border border-gray-300 rounded-lg bg-primary-50 focus:outline-none focus:ring-2 focus:ring-primary-600 focus:border-transparent transition duration-300 placeholder-gray-400"
-                       placeholder="Ex: Développeur Web">
-              </div>
-
-              <!-- Champ Département -->
-              <div class="md:col-span-2 animate-fade-in" style="animation-delay: 0.2s">
-                <label class="block text-gray-700 font-medium mb-2 flex items-center">
-                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-primary-600" viewBox="0 0 20 20" fill="currentColor">
-                    <path fill-rule="evenodd" d="M4 4a2 2 0 012-2h8a2 2 0 012 2v12a1 1 0 110 2h-3a1 1 0 01-1-1v-2a1 1 0 00-1-1H9a1 1 0 00-1 1v2a1 1 0 01-1 1H4a1 1 0 110-2V4zm3 1h2v2H7V5zm2 4H7v2h2V9zm2-4h2v2h-2V5zm2 4h-2v2h2V9z" clip-rule="evenodd" />
-                  </svg>
-                  Département
-                </label>
-                <input type="text" name="departement" required
-                       class="w-full px-4 py-3 border border-gray-300 rounded-lg bg-primary-50 focus:outline-none focus:ring-2 focus:ring-primary-600 focus:border-transparent transition duration-300 placeholder-gray-400"
-                       placeholder="Ex: Informatique">
-              </div>
+   <form class="space-y-6 p-12 " action="{{ route('employer_post') }}" method="POST">
+          @csrf
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="animate-fade-in">
+              <label class="block text-gray-700 font-medium mb-2">Nom</label>
+              <input type="text" name="nom"
+                     class="w-full px-4 py-3 border border-gray-300 rounded-lg bg-blue-50/60  focus:outline-none " />
             </div>
 
-            <!-- Bouton de soumission -->
-            <div class="flex justify-end pt-4">
-              <button type="submit" class="bg-primary-600 hover:bg-primary-700 text-white font-semibold py-3 px-8 rounded-lg transition duration-300 transform hover:scale-105 shadow-md flex items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
-                  <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
-                </svg>
-                Enregistrer
-              </button>
+            <div class="animate-fade-in">
+              <label class="block text-gray-700 font-medium mb-2">Fonction</label>
+              <input type="text" name="fonction"
+                     class="w-full px-4 py-3 border border-gray-300 rounded-lg bg-blue-50/60 focus:outline-none " />
             </div>
-          </form>
-        </div>
+            <div class="animate-fade-in">
+                <label class="block text-gray-700 font-medium mb-2">Departement</label>
+                <input type="text" name="departement"
+                       class="w-full px-4 py-3 border border-gray-300 rounded-lg bg-blue-50/60 focus:outline-none " />
+              </div>
+          </div>
+
+          <div class="flex justify-end pt-4">
+            <button type="submit" class="bg-black  text-white font-semibold py-3 px-8 rounded-lg transition duration-300 transform hover:scale-105 shadow-md">
+              Enregistrer
+            </button>
+          </div>
+        </form>
+
+
       </div>
 
-      <!-- Liste des employés -->
-      <div class="mt-12 bg-white rounded-3xl shadow-xl overflow-hidden">
-        <div class="bg-gradient-to-r from-gray-700 to-gray-800 p-6">
-          <h2 class="text-2xl font-bold text-white flex items-center">
+
+      <div class="mt-12 bg-white border border-black overflow-hidden">
+        <div class="p-6">
+          <h2 class="text-2xl font-bold justify-center flex items-center">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
             </svg>

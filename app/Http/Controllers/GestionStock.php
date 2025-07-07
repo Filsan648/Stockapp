@@ -71,6 +71,8 @@ class GestionStock extends Controller
       ->update([
           'quantite' => $materiel + $request->nombre_ajout
       ]);
+      return redirect()->back()->with('success', 'Sortie de stock enregistrée avec succès.');
+
 
    }
    public function stock_post_sorti(Request $request)  {
@@ -97,8 +99,14 @@ class GestionStock extends Controller
     }
    }
 public function HistoriqueStock(){
-   $stock= Stock::get();
-return view('app.historique',compact('stock'));
+    $type_mouvement=Stock::select('typestock')->distinct()->pluck('typestock');
+    $materiel=Stock::select('materiel')->distinct()->pluck('materiel');
+    $nom_employer=Stock::select('nom_employer')->distinct()->pluck('nom_employer');
+    $date = Stock::select('date')->orderBy('date', 'asc')->pluck('date');
+    $dateE = Stock::select('date')->orderBy('date', 'desc')->pluck('date');
+    $quantite = Stock::select('quantite')->orderBy('quantite', 'desc')->pluck('quantite');
+    $stock= Stock::get();
+ return view('app.historique',compact('stock'));
 }
 
 
@@ -176,8 +184,16 @@ foreach ($monthsstocks as $monthsstock ){
     }
 
 }
+//COunt
+$Employer=Employer::count();
+$Materiel=Materiel::count();
+$Stock=0;
+foreach($materiel_stock as $materiel ){
 
-return(view('app.page',compact('materiel_stock','stock_entree','stocksorti','employer_quantite','Stocks')));
+  $Stock=$Stock+$materiel['quantite'];
+}
+
+return(view('app.page',compact('Stock','Materiel','Employer','materiel_stock','stock_entree','stocksorti','employer_quantite','Stocks')));
 
 }
 

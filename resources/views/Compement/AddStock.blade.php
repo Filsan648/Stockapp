@@ -75,23 +75,23 @@
   @endif
 
   <div class="container mx-auto px-4 py-8 flex justify-center items-start">
-    <div class="w-full max-w-5xl bg-white rounded-3xl shadow-xl overflow-hidden transition-all duration-300 hover:shadow-2xl">
+    <div class="w-full max-w-5xl bg-white border border-black shadow-xl overflow-hidden transition-all duration-300 ">
       <!-- Header -->
-      <div class="bg-gradient-to-r from-primary-600 to-primary-700 p-8 text-center">
-        <h1 class="text-4xl font-extrabold text-white animate-float">Gestion de Stock</h1>
-        <p class="text-blue-100 mt-2 text-lg">Ajoutez ou retirez des matériels du stock</p>
+      <div class=" p-8 text-center">
+        <h1 class="text-4xl font-extrabold ">Gestion de Stock</h1>
+        <p class=" mt-2 text-lg">Ajoutez ou retirez des matériels du stock</p>
       </div>
 
       <div class="p-8 space-y-12">
         <!-- Ajouter dans le stock -->
         <section class="animate-fade-in">
-          <div class="flex items-center mb-6">
-            <div class="bg-blue-100 p-2 rounded-full mr-3">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <div class="flex items-center gap-2 mb-6">
+            <div class="">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-black" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
               </svg>
             </div>
-            <h2 class="text-2xl font-semibold text-gray-800">Ajouter dans le stock</h2>
+            <h2 class="text-2xl font-meduim ">Ajouter dans le stock</h2>
           </div>
 
           <form class="space-y-6" action="{{ route('stock_post') }}" method="POST">
@@ -99,7 +99,7 @@
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
               <div>
                 <label class="block text-gray-700 font-medium mb-2">Type de matériel</label>
-                <select name="materiel" class="w-full px-4 py-3 rounded-lg border border-gray-300 bg-primary-50 focus:outline-none focus:ring-2 focus:ring-primary-600 focus:border-transparent transition duration-300" required>
+                <select name="materiel" class="w-full px-4 py-3 rounded-lg border bg-primary-50  border-gray-300 " required>
                   @foreach ($materiel as $materie)
                     <option value="{{$materie}}">{{$materie}}</option>
                   @endforeach
@@ -108,17 +108,17 @@
 
               <div>
                 <label class="block text-gray-700 font-medium mb-2">Quantité</label>
-                <input type="number" name="nombre_ajout" min="0" class="w-full px-4 py-3 rounded-lg border border-gray-300 bg-primary-50 focus:outline-none focus:ring-2 focus:ring-primary-600 focus:border-transparent transition duration-300" />
+                <input type="number" name="nombre_ajout" min="0" class="w-full px-4 py-3 rounded-lg border border-gray-300 bg-primary-50 " />
               </div>
 
               <div>
                 <label class="block text-gray-700 font-medium mb-2">Date</label>
-                <input type="date" name="date" class="w-full px-4 py-3 rounded-lg border border-gray-300 bg-primary-50 focus:outline-none focus:ring-2 focus:ring-primary-600 focus:border-transparent transition duration-300" />
+                <input type="date" name="date" class="w-full px-4 py-3 rounded-lg border border-gray-300 bg-primary-50 " />
               </div>
             </div>
 
             <div class="flex justify-end pt-2">
-              <button type="submit" class="bg-primary-600 hover:bg-primary-700 text-white font-semibold py-3 px-8 rounded-lg transition duration-300 transform hover:scale-105 shadow-md flex items-center">
+              <button type="submit" class="bg-black text-white font-semibold py-3 px-8 rounded-lg transition duration-300 transform hover:scale-105 shadow-md flex items-center">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
                   <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V7z" clip-rule="evenodd" />
                 </svg>
@@ -131,12 +131,12 @@
         <!-- Sortir du stock -->
         <section class="animate-fade-in">
           <div class="flex items-center mb-6">
-            <div class="bg-red-100 p-2 rounded-full mr-3">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <div class=" p-2 rounded-full mr-3">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-6 text-black" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4" />
               </svg>
             </div>
-            <h2 class="text-2xl font-semibold text-gray-800">Sortir du stock</h2>
+            <h2 class="text-2xl font-meduim ">Sortir du stock</h2>
           </div>
 
           <form class="space-y-6" action="{{ route('stock_post_sorti') }}" method="POST">
@@ -172,7 +172,7 @@
             </div>
 
             <div class="flex justify-end pt-2">
-              <button type="submit" class="bg-secondary-600 hover:bg-secondary-700 text-white font-semibold py-3 px-8 rounded-lg transition duration-300 transform hover:scale-105 shadow-md flex items-center">
+              <button type="submit" class="bg-black hover:bg-black text-white font-semibold py-3 px-8 rounded-lg transition duration-300 transform hover:scale-105 shadow-md flex items-center">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
                   <path fill-rule="evenodd" d="M5 10a1 1 0 011-1h8a1 1 0 110 2H6a1 1 0 01-1-1z" clip-rule="evenodd" />
                 </svg>

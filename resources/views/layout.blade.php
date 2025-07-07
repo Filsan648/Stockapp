@@ -15,9 +15,9 @@
       </aside>
     </div>
 
-  <div class=" bg-blue-50/95  w-full   overflow-y-auto">
+  <div class="  w-full   overflow-y-auto">
 
-    <aside class=" ">
+    <aside class="m-10   ">
         @yield('content')
       </aside>
 
