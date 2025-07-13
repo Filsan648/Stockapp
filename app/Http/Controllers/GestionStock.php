@@ -106,6 +106,7 @@ public function HistoriqueStock(){
     $dateE = Stock::select('date')->orderBy('date', 'desc')->pluck('date');
     $quantite = Stock::select('quantite')->orderBy('quantite', 'desc')->pluck('quantite');
     $stock= Stock::get();
+
  return view('app.historique',compact('stock'));
 }
 
@@ -154,12 +155,14 @@ $employers = Stock::where('typestock', 'sorti')
                 ->select('nom_employer') // on sélectionne la colonne
                 ->distinct()             // on indique qu'on veut des valeurs uniques
                 ->pluck('nom_employer');
-
+foreach($monthssorti as $month ){
 foreach( $employers as $employer){
-
     $quantite_prix=Stock:: where('typestock', 'sorti')->where('nom_employer', $employer)
+    ->whereRaw('DATE_FORMAT(Date, "%M") = ?', $month)
     ->sum('quantite');
-    $employer_quantite[]=['employer' => $employer, 'quantite_prix' => $quantite_prix];
+    $employer_quantite[]=['employer' => $employer, 'quantite_prix' => $quantite_prix,'month' =>$month];
+}
+
 }
 
 
@@ -184,7 +187,7 @@ foreach ($monthsstocks as $monthsstock ){
     }
 
 }
-//COunt
+//Count
 $Employer=Employer::count();
 $Materiel=Materiel::count();
 $Stock=0;

@@ -48,25 +48,47 @@
     <div class="bg-white rounded-lg shadow-md overflow-hidden border border-black animate-fade-in">
       <div class="overflow-x-auto">
         <table class="min-w-full divide-y divide-gray-200">
-          <thead class="  ">
+          <thead class="">
             <tr>
-              <th id="mouvement" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Type de mouvement</th>
-            <div class=" text-xs font-mono text-black/60">
-<div>
-  Sorti
-</div><div>
-  Entree
-</div>
-        </div>
-              <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Matériel</th>
-              <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Quantité</th>
+<th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider relative group cursor-pointer">
+  Type de mouvement
+  <div class="absolute left-0 mt-2 hidden group-hover:block z-10 bg-white border rounded shadow-lg w-24 m-4  ">
+    <ul class="text-xs text-gray-700 divide-y divide-gray-200">
+      <li class="px-4 py-2 hover:bg-blue-50 cursor-pointer   " onclick="filterByType('entree')">Entrée</li>
+      <li class="px-4 py-2 hover:bg-blue-50  cursor-pointer" onclick="filterByType('sorti')">Sortie</li>
+      <li class="px-4 py-2 hover:bg-blue-50  cursor-pointer" onclick="filterByType('all')">Tous</li>
+    </ul>
+  </div>
+</th>
+   <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Matériel </th>
+              <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider relative group cursor-pointer">Quantité<>
+  <div class="absolute  left-0 mt-2 hidden group-hover:block z-10 bg-white border rounded shadow-lg w-20 p-2 m-4">
+    <ul class="text-xs text-gray-700 divide-y divide-gray-200">
+        <div onclick="sortByQuantity('ASC')" class="flex flex-row hover:bg-blue-50 px-4 py-2">
+ ASC
+                </div>
+     <div class="flex flex-row hover:bg-blue-50 px-4 py-2" onclick="sortByQuantity('DESC')"  > DESC </div>
+  </div>
+
+
+
+            </th>
               <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Employé</th>
-              <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Date</th>
+
+              <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider relative group cursor-pointer">Date
+                 <div class="absolute m-4 left-0 mt-2 hidden group-hover:block z-10 bg-white border rounded shadow-lg w-20 p-2">
+    <ul class="text-xs text-gray-700 divide-y divide-gray-200">
+        <div class="flex flex-row hover:bg-blue-50 px-4 py-2"   onclick="sortbyeDate('ASC')">
+ ASC
+                </div>
+     <div class="flex flex-row hover:bg-blue-50 px-4 py-2" onclick="sortbyeDate('DESC')"> DESC </div>
+    </ul>
+  </div></th>
             </tr>
           </thead>
-          <tbody class="bg-white divide-y divide-gray-200">
+          <tbody id="stock-table" class="bg-white divide-y divide-gray-200">
             @foreach ($stock as $stoc)
-            <tr class="@if($stoc->typestock === 'entree')  @else  @endif transition-colors duration-150">
+            <tr data-type="{{ $stoc->typestock }}"  data-quantity="{{$stoc->quantite }}" data-date="{{$stoc->quantite }}" class="@if($stoc->typestock === 'entree')  @else  @endif transition-colors duration-150  hover:shadow  ">
               <td class="px-6 py-4 whitespace-nowrap text-sm font-medium @if($stoc->typestock === 'entree') text-black @else @endif">
                 {{ ucfirst($stoc->typestock) }}
                 @if($stoc->typestock === 'entree')
@@ -80,7 +102,7 @@
                 @endif
               </td>
               <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{{$stoc->materiel}}</td>
-              <td class="px-6 py-4 whitespace-nowrap text-sm font-medium ">
+              <td data-type="{{ $stoc->quantite }}" class="px-6 py-4 whitespace-nowrap text-sm font-medium ">
                 {{$stoc->quantite}}
               </td>
               <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700"> @if($stoc->nom_employer == "null") --
@@ -101,4 +123,51 @@
     @endif
   </div>
 </body>
+<script>
+  function filterByType(type) {
+    const rows = document.querySelectorAll('#stock-table tr');
+    rows.forEach(row => {
+      const rowType = row.getAttribute('data-type');
+      const rowquantite=row.getAttribute('data-quantity')
+     console.log(rowquantite)
+
+      if (type === 'all' || rowType === type) {
+        row.style.display = '';
+      } else {
+        row.style.display = 'none';
+      }
+    });
+  }
+   function sortByQuantity(order) {
+    const tbody = document.querySelector('#stock-table');
+    const rows = Array.from(tbody.querySelectorAll('tr'));
+
+    rows.sort((a, b) => {
+      const aQty = parseFloat(a.getAttribute('data-quantity')) || 0;
+      const bQty = parseFloat(b.getAttribute('data-quantity')) || 0;
+      const aQty2 = parseFloat(a.getAttribute('data-quantity')) || 0;
+      const bQty2 = parseFloat(b.getAttribute('data-quantity')) || 0;
+
+
+      return order === 'ASC' ? aQty - bQty : bQty - aQty;
+    });
+    rows.forEach(row => tbody.appendChild(row));
+  }
+
+   function sortbyeDate(order) {
+    const tbody = document.querySelector('#stock-table');
+    const rows = Array.from(tbody.querySelectorAll('tr'));
+
+    rows.sort((a, b) => {
+      const aQty = parseFloat(a.getAttribute('data-date')) || 0;
+      const bQty = parseFloat(b.getAttribute('data-date')) || 0;
+
+
+
+      return order === 'ASC' ? aQty - bQty : bQty - aQty;
+    });
+    rows.forEach(row => tbody.appendChild(row));
+  }
+</script>
+
 </html>

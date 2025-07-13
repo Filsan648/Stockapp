@@ -50,12 +50,41 @@
       </div>
 
       <!-- Quantité sortie par employé -->
-      <div class="bg-white rounded-xl shadow shadow-black   p-6  transition-shadow">
+    <!--  <div class="bg-white rounded-xl shadow shadow-black   p-6  transition-shadow">
         <h2 class="text-lg font-semibold text-gray-800 mb-4">Quantité sortie par employé</h2>
         <div class="h-80">
           <canvas id="chart4"></canvas>
         </div>
+      </div>*/-->
+
+
+
+<div class="bg-white rounded-xl shadow p-6 shadow-black   transition-shadow">
+        <h2 class="text-lg font-semibold text-gray-800 mb-4">Quantité sortie par employé</h2>
+        <div class="mb-4">
+          <label for="moisSelect" class="block text-lg font-medium text-gray-700 mb-2">Mois</label>
+          <select id="moisSelect" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500">
+            <option disabled selected class="text-gray-400">Mois</option>
+            @foreach (collect($employer_quantite)->pluck('month')->unique() as $month)
+              <option value="{{ $month }}" class="text-gray-700">{{ $month }}</option>
+            @endforeach
+          </select>
+        </div>
+        <div class="h-80">
+          <canvas id="chart4"></canvas>
+        </div>
       </div>
+
+
+
+
+
+
+
+
+
+
+
     </div>
 
     <!-- Deuxième ligne de graphiques -->
@@ -106,10 +135,11 @@
     };
 
     const stockData = {!! json_encode(collect($Stocks)->groupBy('stock_materiel')) !!};
+
     const labelschart1 = {!! json_encode(collect($materiel_stock)->pluck('materiel')) !!};
     const datachart1 = {!! json_encode(collect($materiel_stock)->pluck('quantite')) !!};
 
-    const labelschart4 = {!! json_encode(collect($employer_quantite)->pluck('employer')) !!};
+    const labelschart4 = {!! json_encode(collect($employer_quantite)->groupBy('month')) !!};
     const datachart4 = {!! json_encode(collect($employer_quantite)->pluck('quantite_prix')) !!};
 
     const labelschart2 = {!! json_encode(collect($stock_entree)->pluck('month')) !!};
@@ -165,32 +195,7 @@
     });
 
     // Chart 4
-    new Chart(document.getElementById('chart4').getContext('2d'), {
-      type: 'bar',
-      data: {
-        labels: labelschart4,
-        datasets: [{
-          label: 'Quantité sortie ',
-          data: datachart4,
-          backgroundColor: colors.secondary.light,
 
-          borderWidth: 2,
-          borderRadius: 6,
-
-        }]
-      },
-      options: {
-        ...chartOptions,
-        plugins: {
-          ...chartOptions.plugins,
-          title: {
-            display: true,
-            text: 'Quantité totale sortie par employé',
-            font: { size: 16 }
-          }
-        }
-      }
-    });
 
     // Chart 2
     new Chart(document.getElementById('chart2').getContext('2d'), {
@@ -236,6 +241,7 @@
     let chart3Instance = null;
 
     function updateChart3(materiel) {
+        console.log(materiel)
       const data = stockData[materiel];
       if (!data) return;
 
@@ -284,11 +290,69 @@
         }
       });
     }
+ const chart4Ctx = document.getElementById('chart4').getContext('2d');
+    let chart4Instance = null;
+ function moont(mois) {
+
+      const data = labelschart4[mois];
+       console.log(data)
+      if (!data) return;
+
+      const labels = data.map(item => item.employer);
+      const employer = data.map(item => item.quantite_prix);
+
+      if (chart4Instance) chart4Instance.destroy();
+
+      chart4Instance = new Chart(chart4Ctx, {
+        type: 'bar',
+        data: {
+          labels: labels,
+          datasets: [
+            {
+              label: 'Quantité ',
+              data: employer,
+backgroundColor: colors.secondary.light,
+              borderColor: 'black',
+              borderWidth: 3,
+              tension: 0.3,
+              fill: false
+            },
+
+          ]
+        },
+        options: {
+          ...chartOptions,
+          plugins: {
+            ...chartOptions.plugins,
+            title: {
+              display: true,
+
+              font: { size: 16 }
+            }
+          }
+        }
+      });
+    }
+
+
+
+
+
+
+
+
+
 
     document.getElementById('materielSelect').addEventListener('change', function () {
       updateChart3(this.value);
     });
 
+ document.getElementById('moisSelect').addEventListener('change', function () {
+      moont(this.value);
+    });
+
+       const firstmois= document.getElementById('moisSelect').options[1]?.value;
+          if (firstmois) moont(firstmois);
     const firstMaterial = document.getElementById('materielSelect').options[1]?.value;
     if (firstMaterial) updateChart3(firstMaterial);
   </script>
