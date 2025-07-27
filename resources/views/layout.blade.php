@@ -7,21 +7,26 @@
 
 <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="flex flex-row overflow-hidden">
-
+<body class=" font-serif ">
+    <div>
+    <aside class=" w-full pt-6">
+        @yield('title')
+      </aside>
+    </div>
+    <div class="flex flex-row overflow-hidden">
 <div>
-    <aside class="">
+    <aside class=" w-1/5  fixed top-50% ">
         @yield('sidenave')
       </aside>
     </div>
 
-  <div class="  w-full   overflow-y-auto">
+  <div class="  w-full  overflow-y-auto  pl-24  ">
 
     <aside class="m-10   ">
         @yield('content')
       </aside>
 
   </div>
-
+    </div>
 </body>
 </html>

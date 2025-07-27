@@ -4,9 +4,13 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <script>
     tailwind.config = {
       theme: {
+        fontFamily: {
+          sans: ['Inter', 'sans-serif'],
+        },
         extend: {
           colors: {
             primary: {
@@ -18,134 +22,163 @@
             secondary: {
               500: '#ec4899',
               600: '#db2777',
+            },
+            dark: {
+              700: '#1e293b',
+              800: '#1e293b',
             }
+          },
+          boxShadow: {
+            card: '0 4px 20px rgba(0, 0, 0, 0.08)',
+            chart: '0 4px 12px rgba(0, 0, 0, 0.05)',
           }
         }
       }
     }
   </script>
-  <title>Dashboard Matériel</title>
+  <style>
+    .animate-float {
+      animation: float 6s ease-in-out infinite;
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+    .chart-container {
+      transition: all 0.3s ease;
+    }
+    .chart-container:hover {
+      transform: translateY(-5px);
+    }
+  </style>
 </head>
 
-<body class="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 font-sans p-6 ">
+<body class="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 font-sans p-4 md:p-6">
   <div class="max-w-7xl mx-auto">
-    <h1 class="text-3xl font-bold  text-gray-800 m-10 mb-20">Dashboard</h1>
+    <h1 class="text-3xl font-bold text-gray-800 mb-2">Tableau de Bord</h1>
+    <p class="text-gray-600 mb-8">Aperçu des stocks et des mouvements</p>
 
-<div class="flex flex-row  justify-center items-center gap-14 mb-14">
-    <div class="flex flex-row w-3xl  shadow shadow-black rounded-xl  p-9"> <img src="/image/icons/employer.png" class=" w-20" /> <div class="flex-col flex"> <div class="text-xl">Employers</div> <div class="text-black/60 m-2">{{$Employer}}</div>     </div> </div>
-    <div class="flex flex-row w-3xl  shadow shadow-black rounded-xl  p-9  gap-5 "> <img src="/image/icons/MATERIEL.png" class=" w-20" /> <div class="flex-col flex"> <div class="text-xl"> Materiel  </div> <div class="text-black/60 m-2">{{$Materiel}}</div>     </div> </div>
-    <div class="flex flex-row w-3xl  shadow shadow-black rounded-xl  p-9  gap-5 "> <img src="/image/icons/stock.png" class=" w-20" /> <div class="flex-col flex"> <div class="text-xl"> Stock  </div> <div class="text-black/60 m-2">{{$Stock}}</div>     </div> </div>
-
-
-
-</div>
-    <!-- Première ligne de graphiques -->
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
-      <!-- Quantité sortie par matériel -->
-      <div class="bg-white rounded-xl shadow p-6 shadow-black   transition-shadow">
-        <h2 class="text-lg font-semibold text-gray-800 mb-4">Quantité actuelle en stock pour chaque matériel</h2>
-        <div class="h-80">
-          <canvas id="chart1"></canvas>
+    <!-- Cards Row -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+      <!-- Employer Card -->
+      <div class="bg-gradient-to-r from-red-500 to-red-600 rounded-2xl shadow-lg p-6 text-white transform transition-all hover:scale-105">
+        <div class="flex items-center">
+          <div class="p-3 rounded-full bg-white/20 backdrop-blur-sm mr-4 animate-float">
+            <img src="/image/icons/employer.png" class="w-8 h-8" />
+          </div>
+          <div>
+            <p class="text-sm font-medium opacity-80">Employés</p>
+            <h3 class="text-2xl font-bold">{{$Employer}}</h3>
+          </div>
         </div>
       </div>
 
-      <!-- Quantité sortie par employé -->
-    <!--  <div class="bg-white rounded-xl shadow shadow-black   p-6  transition-shadow">
-        <h2 class="text-lg font-semibold text-gray-800 mb-4">Quantité sortie par employé</h2>
-        <div class="h-80">
-          <canvas id="chart4"></canvas>
-        </div>
-      </div>*/-->
-
-
-
-<div class="bg-white rounded-xl shadow p-6 shadow-black   transition-shadow">
-        <h2 class="text-lg font-semibold text-gray-800 mb-4">Quantité sortie par employé</h2>
-        <div class="mb-4">
-          <label for="moisSelect" class="block text-lg font-medium text-gray-700 mb-2">Mois</label>
-          <select id="moisSelect" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500">
-            <option disabled selected class="text-gray-400">Mois</option>
-            @foreach (collect($employer_quantite)->pluck('month')->unique() as $month)
-              <option value="{{ $month }}" class="text-gray-700">{{ $month }}</option>
-            @endforeach
-          </select>
-        </div>
-        <div class="h-80">
-          <canvas id="chart4"></canvas>
+      <!-- Materiel Card -->
+      <div class="bg-gradient-to-r from-amber-500 to-amber-600 rounded-2xl shadow-lg p-6 text-white transform transition-all hover:scale-105">
+        <div class="flex items-center">
+          <div class="p-3 rounded-full bg-white/20 backdrop-blur-sm mr-4 animate-float">
+            <img src="/image/icons/MATERIEL.png" class="w-8 h-8" />
+          </div>
+          <div>
+            <p class="text-sm font-medium opacity-80">Matériels</p>
+            <h3 class="text-2xl font-bold">{{$Materiel}}</h3>
+          </div>
         </div>
       </div>
 
-
-
-
-
-
-
-
-
-
-
+      <!-- Stock Card -->
+      <div class="bg-gradient-to-r from-violet-500 to-violet-600 rounded-2xl shadow-lg p-6 text-white transform transition-all hover:scale-105">
+        <div class="flex items-center">
+          <div class="p-3 rounded-full bg-white/20 backdrop-blur-sm mr-4 animate-float">
+            <img src="/image/icons/stock.png" class="w-8 h-8" />
+          </div>
+          <div>
+            <p class="text-sm font-medium opacity-80">Stock Total</p>
+            <h3 class="text-2xl font-bold">{{$Stock}}</h3>
+          </div>
+        </div>
+      </div>
     </div>
 
-    <!-- Deuxième ligne de graphiques -->
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-      <!-- Flux mensuel des entrées/sorties -->
-      <div class="bg-white rounded-xl shadow shadow-black  p-6  transition-shadow">
-        <h2 class="text-lg font-semibold text-gray-800 mb-4">Flux mensuel des entrées/sorties</h2>
-        <div class="h-80">
-          <canvas id="chart2"></canvas>
-        </div>
-      </div>
-
-      <!-- Détails par matériel avec sélection -->
-      <div class="bg-white rounded-xl shadow p-6 shadow-black   transition-shadow">
-        <h2 class="text-lg font-semibold text-gray-800 mb-4">Détails par matériel</h2>
-        <div class="mb-4">
-          <label for="materielSelect" class="block text-lg font-medium text-gray-700 mb-2">Sélectionnez un matériel :</label>
-          <select id="materielSelect" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500">
+    <!-- Material Details Section -->
+    <div class="bg-white rounded-2xl shadow-card p-6 mb-8 transition-all hover:shadow-chart">
+      <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-6">
+        <h2 class="text-xl font-semibold text-gray-800">Détails par matériel</h2>
+        <div class="w-full md:w-64 mt-4 md:mt-0">
+          <select id="materielSelect" class="w-full p-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 text-gray-700 bg-gray-50">
             <option disabled selected class="text-gray-400">Choisir un matériel</option>
             @foreach (collect($Stocks)->pluck('stock_materiel')->unique() as $materiel)
               <option value="{{ $materiel }}" class="text-gray-700">{{ $materiel }}</option>
             @endforeach
           </select>
         </div>
+      </div>
+      <div class="h-80 chart-container">
+        <canvas id="chart3"></canvas>
+      </div>
+    </div>
+
+    <!-- First Row of Charts -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+      <!-- Current Stock Quantity -->
+      <div class="bg-white rounded-2xl shadow-card p-6 transition-all hover:shadow-chart chart-container">
+        <h2 class="text-xl font-semibold text-gray-800 mb-6">Quantité actuelle en stock</h2>
         <div class="h-80">
-          <canvas id="chart3"></canvas>
+          <canvas id="chart1"></canvas>
         </div>
+      </div>
+
+      <!-- Quantity by Employee -->
+      <div class="bg-white rounded-2xl shadow-card p-6 transition-all hover:shadow-chart chart-container">
+        <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-6">
+          <h2 class="text-xl font-semibold text-gray-800">Quantité sortie par employé</h2>
+          <div class="w-full md:w-48 mt-4 md:mt-0">
+            <select id="moisSelect" class="w-full p-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 text-gray-700 bg-gray-50">
+              <option disabled selected class="text-gray-400">Mois</option>
+              @foreach (collect($employer_quantite)->pluck('month')->unique() as $month)
+                <option value="{{ $month }}" class="text-gray-700">{{ $month }}</option>
+              @endforeach
+            </select>
+          </div>
+        </div>
+        <div class="h-80">
+          <canvas id="chart4"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <!-- Monthly Flow Chart -->
+    <div class="bg-white rounded-2xl shadow-card p-6 transition-all hover:shadow-chart chart-container mb-8">
+      <h2 class="text-xl font-semibold text-gray-800 mb-6">Flux mensuel des entrées/sorties</h2>
+      <div class="h-80">
+        <canvas id="chart2"></canvas>
       </div>
     </div>
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script>
-    // Couleurs personnalisées
+    // Custom colors
     const colors = {
-      primary: {
-        light: 'black',
-        dark: 'rgba(37, 99, 235, 1)'
-      },
-      secondary: {
-        light: 'black',
-        dark: 'rgba(219, 39, 119, 1)'
-      },
-      success: {
-        light: 'rgba(16, 185, 129, 0.5)',
-        dark: 'rgba(5, 150, 105, 1)'
-      }
+      primary: '#3b82f6',
+      secondary: '#ec4899',
+      success: '#10b981',
+      danger: '#ef4444',
+      warning: '#f59e0b',
+      info: '#6366f1',
+      dark: '#1e293b'
     };
 
     const stockData = {!! json_encode(collect($Stocks)->groupBy('stock_materiel')) !!};
-
     const labelschart1 = {!! json_encode(collect($materiel_stock)->pluck('materiel')) !!};
     const datachart1 = {!! json_encode(collect($materiel_stock)->pluck('quantite')) !!};
-
     const labelschart4 = {!! json_encode(collect($employer_quantite)->groupBy('month')) !!};
     const datachart4 = {!! json_encode(collect($employer_quantite)->pluck('quantite_prix')) !!};
-
     const labelschart2 = {!! json_encode(collect($stock_entree)->pluck('month')) !!};
     const datachart2a = {!! json_encode(collect($stock_entree)->pluck('quantite_entree')) !!};
     const datachart2b = {!! json_encode(collect($stock_entree)->pluck('quantite_sorti')) !!};
 
+    // Chart configuration
     const chartOptions = {
       responsive: true,
       maintainAspectRatio: false,
@@ -153,32 +186,75 @@
         legend: {
           position: 'top',
           labels: {
-            font: { size: 14 }
+            font: {
+              size: 14,
+              family: 'Inter'
+            },
+            padding: 20
           }
         },
         tooltip: {
-
-          titleFont: { size: 16 },
-          bodyFont: { size: 14 },
-          padding: 12
+          backgroundColor: colors.dark,
+          titleFont: { size: 14, family: 'Inter', weight: 'bold' },
+          bodyFont: { size: 13, family: 'Inter' },
+          padding: 12,
+          cornerRadius: 8,
+          displayColors: true,
+          boxPadding: 4
         }
       },
-
+      scales: {
+        x: {
+          grid: {
+            display: false
+          },
+          ticks: {
+            font: {
+              family: 'Inter'
+            }
+          }
+        },
+        y: {
+          grid: {
+            color: 'rgba(0, 0, 0, 0.05)'
+          },
+          ticks: {
+            font: {
+              family: 'Inter'
+            }
+          }
+        }
+      },
+      elements: {
+        bar: {
+          borderRadius: 8
+        }
+      }
     };
 
-    // Chart 1
+    // Chart 1 - Current Stock
     new Chart(document.getElementById('chart1').getContext('2d'), {
       type: 'bar',
       data: {
         labels: labelschart1,
         datasets: [{
-          label: 'Quantité ',
+          label: 'Quantité en stock',
           data: datachart1,
-          backgroundColor: colors.secondary.light,
-
-          borderWidth: 2,
-          borderRadius: 6,
-
+          backgroundColor: [
+            'rgba(99, 102, 241, 0.8)',
+            'rgba(59, 130, 246, 0.8)',
+            'rgba(16, 185, 129, 0.8)',
+            'rgba(245, 158, 11, 0.8)',
+            'rgba(236, 72, 153, 0.8)'
+          ],
+          borderColor: [
+            'rgba(99, 102, 241, 1)',
+            'rgba(59, 130, 246, 1)',
+            'rgba(16, 185, 129, 1)',
+            'rgba(245, 158, 11, 1)',
+            'rgba(236, 72, 153, 1)'
+          ],
+          borderWidth: 1
         }]
       },
       options: {
@@ -186,40 +262,41 @@
         plugins: {
           ...chartOptions.plugins,
           title: {
-            display: true,
-            text: 'Quantité actuelle en stock pour chaque matériel',
-            font: { size: 16 }
+            display: false
           }
         }
       }
     });
 
-    // Chart 4
-
-
-    // Chart 2
+    // Chart 2 - Monthly Flow
     new Chart(document.getElementById('chart2').getContext('2d'), {
-      type: 'bar',
+      type: 'line',
       data: {
         labels: labelschart2,
         datasets: [
           {
             label: 'Quantité entrée',
             data: datachart2a,
-            backgroundColor: colors.primary.light,
-            borderColor: colors.primary.dark,
+            backgroundColor: 'rgba(239, 68, 68, 0.2)',
+            borderColor: 'rgba(239, 68, 68, 1)',
             borderWidth: 2,
-            borderRadius: 6,
-
+            tension: 0.3,
+            fill: true,
+            pointBackgroundColor: 'rgba(239, 68, 68, 1)',
+            pointRadius: 4,
+            pointHoverRadius: 6
           },
           {
             label: 'Quantité sortie',
             data: datachart2b,
-            backgroundColor: colors.secondary.light,
-            borderColor: colors.secondary.dark,
+            backgroundColor: 'rgba(59, 130, 246, 0.2)',
+            borderColor: 'rgba(59, 130, 246, 1)',
             borderWidth: 2,
-            borderRadius: 6,
-
+            tension: 0.3,
+            fill: true,
+            pointBackgroundColor: 'rgba(59, 130, 246, 1)',
+            pointRadius: 4,
+            pointHoverRadius: 6
           }
         ]
       },
@@ -228,20 +305,17 @@
         plugins: {
           ...chartOptions.plugins,
           title: {
-            display: true,
-            text: 'Flux mensuel des entrées et sorties',
-            font: { size: 16 }
+            display: false
           }
         }
       }
     });
 
-    // Chart 3 dynamique
+    // Chart 3 - Material Details
     const chart3Ctx = document.getElementById('chart3').getContext('2d');
     let chart3Instance = null;
 
     function updateChart3(materiel) {
-        console.log(materiel)
       const data = stockData[materiel];
       if (!data) return;
 
@@ -259,21 +333,26 @@
             {
               label: 'Quantité entrée',
               data: entrees,
-
-              borderColor: colors.primary.dark,
-              borderWidth: 3,
+              backgroundColor: 'rgba(16, 185, 129, 0.2)',
+              borderColor: 'rgba(16, 185, 129, 1)',
+              borderWidth: 2,
               tension: 0.3,
-              fill: false
+              fill: true,
+              pointBackgroundColor: 'rgba(16, 185, 129, 1)',
+              pointRadius: 4,
+              pointHoverRadius: 6
             },
             {
               label: 'Quantité sortie',
               data: sorties,
-
-
-              borderColor: 'black',
-              borderWidth: 3,
+              backgroundColor: 'rgba(245, 158, 11, 0.2)',
+              borderColor: 'rgba(245, 158, 11, 1)',
+              borderWidth: 2,
               tension: 0.3,
-              fill: true
+              fill: true,
+              pointBackgroundColor: 'rgba(245, 158, 11, 1)',
+              pointRadius: 4,
+              pointHoverRadius: 6
             }
           ]
         },
@@ -282,20 +361,19 @@
           plugins: {
             ...chartOptions.plugins,
             title: {
-              display: true,
-              text: `Historique pour: ${materiel}`,
-              font: { size: 16 }
+              display: false
             }
           }
         }
       });
     }
- const chart4Ctx = document.getElementById('chart4').getContext('2d');
-    let chart4Instance = null;
- function moont(mois) {
 
+    // Chart 4 - Quantity by Employee
+    const chart4Ctx = document.getElementById('chart4').getContext('2d');
+    let chart4Instance = null;
+
+    function updateEmployeeChart(mois) {
       const data = labelschart4[mois];
-       console.log(data)
       if (!data) return;
 
       const labels = data.map(item => item.employer);
@@ -304,57 +382,60 @@
       if (chart4Instance) chart4Instance.destroy();
 
       chart4Instance = new Chart(chart4Ctx, {
-        type: 'bar',
+        type: 'doughnut',
         data: {
           labels: labels,
-          datasets: [
-            {
-              label: 'Quantité ',
-              data: employer,
-backgroundColor: colors.secondary.light,
-              borderColor: 'black',
-              borderWidth: 3,
-              tension: 0.3,
-              fill: false
-            },
-
-          ]
+          datasets: [{
+            data: employer,
+            backgroundColor: [
+              'rgba(99, 102, 241, 0.8)',
+              'rgba(59, 130, 246, 0.8)',
+              'rgba(16, 185, 129, 0.8)',
+              'rgba(245, 158, 11, 0.8)',
+              'rgba(236, 72, 153, 0.8)',
+              'rgba(139, 92, 246, 0.8)',
+              'rgba(20, 184, 166, 0.8)'
+            ],
+            borderColor: 'rgba(255, 255, 255, 0.5)',
+            borderWidth: 1,
+            cutout: '70%'
+          }]
         },
         options: {
           ...chartOptions,
           plugins: {
             ...chartOptions.plugins,
+            legend: {
+              position: 'right',
+              labels: {
+                boxWidth: 12,
+                padding: 16,
+                usePointStyle: true
+              }
+            },
             title: {
-              display: true,
-
-              font: { size: 16 }
+              display: false
             }
           }
         }
       });
     }
 
-
-
-
-
-
-
-
-
-
-    document.getElementById('materielSelect').addEventListener('change', function () {
+    // Event Listeners
+    document.getElementById('materielSelect').addEventListener('change', function() {
       updateChart3(this.value);
     });
 
- document.getElementById('moisSelect').addEventListener('change', function () {
-      moont(this.value);
+    document.getElementById('moisSelect').addEventListener('change', function() {
+      updateEmployeeChart(this.value);
     });
 
-       const firstmois= document.getElementById('moisSelect').options[1]?.value;
-          if (firstmois) moont(firstmois);
+    // Initialize first charts
     const firstMaterial = document.getElementById('materielSelect').options[1]?.value;
     if (firstMaterial) updateChart3(firstMaterial);
+
+    const firstMonth = document.getElementById('moisSelect').options[1]?.value;
+    if (firstMonth) updateEmployeeChart(firstMonth);
   </script>
 </body>
 </html>

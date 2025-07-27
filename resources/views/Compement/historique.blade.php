@@ -61,7 +61,7 @@
   </div>
 </th>
    <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Matériel </th>
-              <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider relative group cursor-pointer">Quantité<>
+              <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider relative group cursor-pointer">Quantité
   <div class="absolute  left-0 mt-2 hidden group-hover:block z-10 bg-white border rounded shadow-lg w-20 p-2 m-4">
     <ul class="text-xs text-gray-700 divide-y divide-gray-200">
         <div onclick="sortByQuantity('ASC')" class="flex flex-row hover:bg-blue-50 px-4 py-2">
