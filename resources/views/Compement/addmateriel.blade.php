@@ -38,7 +38,7 @@
   <div class="w-full max-w-4xl mx-auto p-6 lg:p-10">
     <div class="bg-white border border-black rounded-3xl  overflow-hidden transition-all duration-300 ">
       <div class=" p-6">
-        <h1 class="text-3xl font-bold text-center  ">Gestion des Matériels</h1>
+        <h1 class="text-3xl font-bold text-center  ">Ajouter des items</h1>
       </div>
 
       <div class="p-8">
@@ -46,7 +46,7 @@
           @csrf
           <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div class="animate-fade-in">
-              <label class="block text-gray-700 font-medium mb-2">Matériel</label>
+              <label class="block text-gray-700 font-medium mb-2">Items</label>
               <input type="text" name="Materiel" placeholder="Ex: Gant"
                      class="w-full px-4 py-3 border border-gray-300 rounded-lg bg-blue-50/60  focus:outline-none " />
             </div>
@@ -57,6 +57,20 @@
                      class="w-full px-4 py-3 border border-gray-300 rounded-lg bg-blue-50/60 focus:outline-none " />
             </div>
             <div class="animate-fade-in">
+                <label class="block text-gray-700 font-medium mb-2">Categorie</label>
+                <select class="w-full px-4 py-3 border border-gray-300 rounded-lg bg-blue-50/60 focus:outline-none " >
+                <option >Matières Premières</option>
+                <option>Produits Finis</option>
+                <option>Pièces Détachées</option>
+                <option>Fournitures d’Usine</option>
+                </select>
+              </div>
+              <div class="animate-fade-in">
+                <label class="block text-gray-700 font-medium mb-2">Image</label>
+                <input type="file" name="date" accept="image/*"
+                       class="w-full px-4 py-3 border border-gray-300 rounded-lg bg-blue-50/60 focus:outline-none " multiple/>
+              </div>
+               <div class="animate-fade-in">
                 <label class="block text-gray-700 font-medium mb-2">Date</label>
                 <input type="date" name="date" placeholder="Ex: 5"
                        class="w-full px-4 py-3 border border-gray-300 rounded-lg bg-blue-50/60 focus:outline-none " />
@@ -79,7 +93,8 @@
               <table class="min-w-full divide-y divide-gray-200">
                 <thead class="bg-gray-50">
                   <tr>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Matériel</th>
+                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">ID</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Items</th>
                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Quantité</th>
                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
                   </tr>
@@ -87,6 +102,7 @@
                 <tbody class="bg-white divide-y divide-gray-200">
                   @foreach ($materiel as $materie)
                   <tr class="hover:bg-gray-50 transition duration-150">
+                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{{ $materie->id }}</td>
                     <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{{ $materie->materiel }}</td>
                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ $materie->quantite }}</td>
                     <td class="px-6 py-4 whitespace-nowrap text-sm">
@@ -113,8 +129,8 @@
               <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 mx-auto text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
               </svg>
-              <h3 class="mt-4 text-lg font-medium text-gray-700">Aucun matériel enregistré</h3>
-              <p class="mt-1 text-gray-500">Commencez par ajouter votre premier matériel</p>
+              <h3 class="mt-4 text-lg font-medium text-gray-700">Aucun Items enregistré</h3>
+              <p class="mt-1 text-gray-500">Commencez par ajouter votre premier Items</p>
             </div>
           @endif
         </div>

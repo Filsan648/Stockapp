@@ -45,21 +45,36 @@
         <img src="image/icons/plus.svg" class=" invert" alt="Mouvements" width="15" height="15">
 
       </a>
+   <a href="{{ route('commande') }}"
+         class="flex items-center gap-3 rounded-lg px-3 py-2 transition
+         {{ request()->routeIs('commande') ? 'active-link' : '' }}">
+        <img src="image/icons/historique.png"  alt="commande" width="15" height="15">
 
+      </a>
       <a href="{{ route('HistoriqueStock') }}"
          class="flex items-center gap-3 rounded-lg px-3 py-2 transition
          {{ request()->routeIs('HistoriqueStock') ? 'active-link' : '' }}">
         <img src="image/icons/time-past.svg" class=" invert" alt="Historique de stock" width="15" height="15">
 
       </a>
-
-      <a href="{{ route('employer') }}"
+ <a href="{{ route('employer') }}"
          class="flex items-center gap-3 rounded-lg px-3 py-2 transition
          {{ request()->routeIs('employer') ? 'active-link' : '' }}">
-        <img src="image/icons/user-add.svg" class=" invert" alt="Employés" width="15" height="15">
+        <img src="image/icons/mallette.png" alt="Employés" width="15" height="15">
 
       </a>
+      <a href="{{ route('users') }}"
+         class="flex items-center gap-3 rounded-lg px-3 py-2 transition
+         {{ request()->routeIs('users') ? 'active-link' : '' }}">
+        <img src="image/icons/user-add.svg" class=" invert" alt="user" width="15" height="15">
 
+      </a>
+ <a href="{{ route('stock') }}"
+         class="flex items-center gap-3 rounded-lg px-3 py-2 transition
+         {{ request()->routeIs('stock') ? 'active-link' : '' }}">
+        <img src="image/icons/cloche.png"   alt="Paramètres" width="15" height="15">
+
+      </a>
       <a href="{{ route('stock') }}"
          class="flex items-center gap-3 rounded-lg px-3 py-2 transition
          {{ request()->routeIs('stock') ? 'active-link' : '' }}">
@@ -77,7 +92,7 @@
     </nav>
   </div>
 
-  <!-- Logout -->
+
 
 </div>
 

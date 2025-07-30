@@ -10,5 +10,5 @@
 @endsection
 </div>
 @section('content')
-@include('Compement.employer')
+@include('Compement.user',['User' => $User])
 @endsection

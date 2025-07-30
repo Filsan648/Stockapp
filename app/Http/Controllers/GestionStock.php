@@ -6,7 +6,12 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Materiel;
 use App\Models\Employer;
+use App\Models\Commande;
 use App\Models\Stock;
+use App\Models\User;
+use Illuminate\Support\Facades\Hash;
+use Carbon\Carbon;
+
 class GestionStock extends Controller
 {
 
@@ -199,9 +204,73 @@ foreach($materiel_stock as $materiel ){
 return(view('app.page',compact('Stock','Materiel','Employer','materiel_stock','stock_entree','stocksorti','employer_quantite','Stocks')));
 
 }
+function Commande(){
+    $User=User::where("isadmin",1)->get();
+    $Commandes=Commande::get();
+
+    return(view('app.commande',compact('User','Commandes')));
 
 
+}
+function Commandepost(Request $request){
 
+$recepteur=User::where('id',$request->recepteur)->pluck('name');
+$date = Carbon::now();
+ Commande::create([
+       'expediteur'=>"Filsan" ,
+       'recepteur'=>$recepteur,
+       'date'=> $date,
+       'NommItem'=>$request->Nom ,
+       'Description'=> $request->Description ,
+
+
+]);
+
+     return redirect()->back()->with('success', 'Sortie de stock enregistrée avec succès.');
+}
+
+function login(){
+    return  view("Compement.login");
+}
+function loginpost(Request $request)
+{
+    $credentials = $request->validate([
+        'email' => 'required|email',
+        'password' => 'required'
+    ]);
+
+    if (Auth::attempt($credentials)) {
+        $request->session()->regenerate();
+
+        return redirect()->route('dashboard');
+    }
+
+    return to_route('login')->withErrors([
+
+        'email' => 'email invalide'
+    ])->onlyInput('email');
+}
+
+function users(){
+$User=User::get();
+    return(view('app.user',compact('User')));
+}
+
+function userspost(Request $request){
+
+    User::create(
+['name'=>$request->nom,
+ 'email'=>$request->email,
+ 'password'=>Hash::make($request->password),
+ 'stockatribue'=>$request->Stock,
+
+'isadmin'=>$request->Role == "Administrateur" ? 1 : 0
+]
+    );
+
+
+     return redirect()->back()->with('success', '');
+}
 
 }
 

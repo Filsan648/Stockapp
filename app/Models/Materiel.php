@@ -14,7 +14,9 @@ class Materiel extends Model
 
     protected $fillable = [
        'materiel',
-       'quantite'
+       'quantite',
+       'image',
+       'categorie'
 
 
     ];

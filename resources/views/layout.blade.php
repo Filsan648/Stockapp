@@ -15,7 +15,7 @@
     </div>
     <div class="flex flex-row overflow-hidden">
 <div>
-    <aside class=" w-1/5  fixed top-50% ">
+    <aside class=" w-1/5  fixed top-0 ">
         @yield('sidenave')
       </aside>
     </div>
