@@ -69,15 +69,15 @@
         <img src="image/icons/user-add.svg" class=" invert" alt="user" width="15" height="15">
 
       </a>
- <a href="{{ route('stock') }}"
+ <a href="{{ route('Commandes') }}"
          class="flex items-center gap-3 rounded-lg px-3 py-2 transition
-         {{ request()->routeIs('stock') ? 'active-link' : '' }}">
+         {{ request()->routeIs('Commandes') ? 'active-link' : '' }}">
         <img src="image/icons/cloche.png"   alt="Paramètres" width="15" height="15">
 
       </a>
-      <a href="{{ route('stock') }}"
+      <a href="{{ route('Setting') }}"
          class="flex items-center gap-3 rounded-lg px-3 py-2 transition
-         {{ request()->routeIs('stock') ? 'active-link' : '' }}">
+         {{ request()->routeIs('Setting') ? 'active-link' : '' }}">
         <img src="image/icons/settings.svg"  class=" invert" alt="Paramètres" width="15" height="15">
 
       </a>

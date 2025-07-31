@@ -33,16 +33,16 @@
         <img src="image/icons/logo.png" class="h-10" alt="Dashboard Logo">
       </div>
 
+      @php
+          use Illuminate\Support\Facades\Auth;
+          $user = Auth::user();
+      @endphp
+
       <!-- User Profile -->
       <div class="flex items-center space-x-4">
         <div class="text-right hidden sm:block">
-          <p class="text-sm font-medium text-gray-800">Filsan Fouad</p>
-          <p class="text-xs font-light text-gray-500">Administrator</p>
-        </div>
-        <div class="relative">
-          <div class="h-10 w-10 rounded-full bg-primary flex items-center justify-center text-white font-semibold">
-            FF
-          </div>
+          <p class="text-sm font-medium text-gray-800">{{ $user->name }}</p>
+          <p class="text-xs font-light text-gray-500"> {{ $user->isadmin == 1 ? 'Admin' : 'User' }}</p>
         </div>
       </div>
     </div>

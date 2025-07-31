@@ -42,7 +42,7 @@
       </div>
 
       <div class="p-8">
-        <form class="space-y-6" action="{{ route('materiel_post') }}" method="POST">
+        <form class="space-y-6" action="{{ route('materiel_post') }}" method="POST" enctype="multipart/form-data">
           @csrf
           <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div class="animate-fade-in">
@@ -58,17 +58,17 @@
             </div>
             <div class="animate-fade-in">
                 <label class="block text-gray-700 font-medium mb-2">Categorie</label>
-                <select class="w-full px-4 py-3 border border-gray-300 rounded-lg bg-blue-50/60 focus:outline-none " >
-                <option >Matières Premières</option>
-                <option>Produits Finis</option>
-                <option>Pièces Détachées</option>
-                <option>Fournitures d’Usine</option>
+                <select name="Categori"class="w-full px-4 py-3 border border-gray-300 rounded-lg bg-blue-50/60 focus:outline-none " >
+                <option value="Matières Premières" >Matières Premières</option>
+                <option value="Produits Finis" >Produits Finis</option>
+                <option value="Pièces Détachées">Pièces Détachées</option>
+                <option value="Fournitures d’Usine">Fournitures d’Usine</option>
                 </select>
               </div>
               <div class="animate-fade-in">
                 <label class="block text-gray-700 font-medium mb-2">Image</label>
-                <input type="file" name="date" accept="image/*"
-                       class="w-full px-4 py-3 border border-gray-300 rounded-lg bg-blue-50/60 focus:outline-none " multiple/>
+                <input type="file" name="Image" accept="image/*"
+                       class="w-full px-4 py-3 border border-gray-300 rounded-lg bg-blue-50/60 focus:outline-none " />
               </div>
                <div class="animate-fade-in">
                 <label class="block text-gray-700 font-medium mb-2">Date</label>
@@ -95,16 +95,26 @@
                   <tr>
                      <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">ID</th>
                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Items</th>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Quantité</th>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
-                  </tr>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Categorie</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"> Quantité</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Image </th>
+                   <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                </tr>
                 </thead>
                 <tbody class="bg-white divide-y divide-gray-200">
                   @foreach ($materiel as $materie)
                   <tr class="hover:bg-gray-50 transition duration-150">
                     <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{{ $materie->id }}</td>
                     <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{{ $materie->materiel }}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ $materie->categorie }}</td>
                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ $materie->quantite }}</td>
+                      <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                         @if(file_exists(public_path('images/' . $materie->image)))
+    <img src="{{ asset('images/' . $materie->image) }}" alt="Image" class="w-32 h-32 object-cover rounded">
+@else
+    <p>Aucune image disponible</p>
+@endif</td>
+
                     <td class="px-6 py-4 whitespace-nowrap text-sm">
                       <div class="flex space-x-2">
                         <button class="text-black/60 hover:text-blue-300 transition duration-300">

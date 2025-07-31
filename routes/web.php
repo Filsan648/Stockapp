@@ -16,6 +16,9 @@ Route::get('/Commande', [GestionStock::class,'Commande'])->name('commande');
 Route::get('/', [GestionStock::class,'login'])->name('login');
 Route::get('/users', [GestionStock::class,'users'])->name('users');
 
+Route::get('/Commandes', [GestionStock::class,'Commandes'])->name('Commandes');
+Route::get('/App/Setting', [GestionStock::class,'Setting'])->name('Setting');
+
 
 //formulaire
 Route::post('/stockform', [GestionStock::class,'stock_post'])->name('stock_post');
@@ -28,4 +31,5 @@ Route::post('/loginpost', [GestionStock::class,'loginpost'])->name('loginpost');
 
 Route::post('/userspost', [GestionStock::class,'userspost'])->name('userspost');
 Route::post('/Commandepost', [GestionStock::class,'Commandepost'])->name('Commandepost');
-
+Route::post('/Commandespost/{id}}', [GestionStock::class,'Commandespost'])->name('Commandespost');
+Route::put('/Setting/update', [GestionStock::class, 'updateSetting'])->name('Setting.update');

@@ -34,11 +34,18 @@ class GestionStock extends Controller
  }
 
  public function materiel_post(Request $request) {
+         if ($request->hasFile('Image')) {
+        $file = $request->file('Image');
+        $filename = time() . '_' . $file->getClientOriginalName();
+        $file->move(public_path('images'), $filename); // stocke dans public/images/
 
-    Materiel::create(
-      [  "materiel"=>$request->Materiel,
-      "quantite"=>$request->quantite,
-    ]);
+        Materiel::create([
+            "materiel" => $request->Materiel,
+            "quantite" => $request->quantite,
+            "image" => $filename, // on stocke juste le nom du fichier
+            "categorie" => $request->Categori,
+        ]);
+    }
 
     Stock::create(
         [
@@ -48,7 +55,8 @@ class GestionStock extends Controller
           "nom_employer"=>"null",
           "quantite"=>$request->quantite
       ]);
-   }
+       return redirect()->back()->with('success' );
+    }
 
    public function employer_post(Request $request) {
 
@@ -206,7 +214,8 @@ return(view('app.page',compact('Stock','Materiel','Employer','materiel_stock','s
 }
 function Commande(){
     $User=User::where("isadmin",1)->get();
-    $Commandes=Commande::get();
+      $NameUser= Auth::user()->name;
+$Commandes=Commande::where('expediteur', $NameUser)->get();
 
     return(view('app.commande',compact('User','Commandes')));
 
@@ -214,7 +223,7 @@ function Commande(){
 }
 function Commandepost(Request $request){
 
-$recepteur=User::where('id',$request->recepteur)->pluck('name');
+$recepteur=User::where('id',$request->recepteur)->value('name');
 $date = Carbon::now();
  Commande::create([
        'expediteur'=>"Filsan" ,
@@ -271,7 +280,23 @@ function userspost(Request $request){
 
      return redirect()->back()->with('success', '');
 }
+function Commandes(){
+    $NameUser= Auth::user()->name;
+$Commandes=Commande::where('recepteur', $NameUser)->get();
+    return(view('app.notification',compact('Commandes')));
 
+}
+function Commandespost(Request $request,$id){
+  $commande = Commande::findOrFail($id);
+  $commande->status= $request->response ;
+  $commande->save();
+return redirect()->back()->with('success', '');
+}
+function Setting(){
+ $user = Auth::user(); // récupère l'utilisateur connecté
+    return view('app.parametre', compact('user'));
+
+}
 }
 
 

@@ -39,6 +39,7 @@
         <div>
           <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
           <input
+          name="email"
             type="email"
             id="email"
             placeholder="your@email.com"
@@ -50,6 +51,7 @@
         <div>
           <label for="password" class="block text-sm font-medium text-gray-700 mb-1">Password</label>
           <input
+           name="password"
             type="password"
             id="password"
             placeholder="••••••••"
