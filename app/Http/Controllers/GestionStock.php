@@ -17,7 +17,9 @@ class GestionStock extends Controller
 
  public function stock_get () {
     $materiel=Materiel::pluck("materiel");
-    $employer=Employer::pluck("name");
+    $responsable=Auth::user();
+
+    $employer=Employer::where("Responsable",$responsable->name)->pluck("name");
     return (view('app.stockpage',compact("materiel","employer")));
 
  }
@@ -31,6 +33,7 @@ class GestionStock extends Controller
  public function employer_get () {
     $responsable=Auth::user();
     $employer=Employer::where("Responsable",$responsable->name)->get();
+
     return (view('app.employerpage',compact("employer")));
 
  }
@@ -44,7 +47,7 @@ class GestionStock extends Controller
         Materiel::create([
             "materiel" => $request->Materiel,
             "quantite" => $request->quantite,
-            "image" => $filename, // on stocke juste le nom du fichier
+            "image" => $filename, //on stocke juste le nom du fichier
             "categorie" => $request->Categori,
         ]);
     }
@@ -61,13 +64,15 @@ class GestionStock extends Controller
     }
 
    public function employer_post(Request $request) {
-$responsable=Auth::user();
-    Employer::create(
+     $responsable=Auth::user();
+
+      Employer::create(
       [
         "name"=>$request->nom,
         "fonction"=>$request->fonction,
         "Departement"=>$request->departement,
         "Responsable"=>$responsable->name,
+        "categorie"=>$responsable->stockatribue
 
     ]);
     return redirect()->back()->with('success', 'Sortie de stock enregistrée avec succès.');
@@ -157,7 +162,7 @@ foreach( $materiels as $materiel){
   ->sum('quantite');
   $quantite_sorti= stock:: where('typestock', 'sorti')->whereRaw('DATE_FORMAT(Date, "%M") = ?', $month)
   ->sum('quantite');
-  $stock_entree[]=['month' => $month, 'quantite_entree' => $quantite_entree,'quantite_sorti' => $quantite_sorti];
+  $stock_entree[]=['month' => $month,'quantite_entree' => $quantite_entree,'quantite_sorti' => $quantite_sorti];
   }
 
   //chart3 stock storie par mois
@@ -284,8 +289,10 @@ function loginpost(Request $request)
 
     if (Auth::attempt($credentials)) {
         $request->session()->regenerate();
+     $user=Auth::user();
+      if($user->isadmin==1){ return redirect()->route('dashboard');}
+       return redirect()->route('Commandes');
 
-        return redirect()->route('dashboard');
     }
 
     return to_route('login')->withErrors([

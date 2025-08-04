@@ -93,7 +93,7 @@
             <img src="/image/icons/stock.png" class="w-8 h-8" />
           </div>
           <div>
-            <p class="text-sm font-medium opacity-80">Stock Total</p>
+            <p class="text-sm font-medium opacity-80">Quantite  Total en stock</p>
             <h3 class="text-2xl font-bold">{{$Stock}}</h3>
           </div>
         </div>
@@ -103,10 +103,10 @@
     <!-- Material Details Section -->
     <div class="bg-white rounded-2xl shadow-card p-6 mb-8 transition-all hover:shadow-chart">
       <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-6">
-        <h2 class="text-xl font-semibold text-gray-800">Détails par matériel</h2>
+        <h2 class="text-xl font-semibold text-gray-800">Détails par Categorie materiel</h2>
         <div class="w-full md:w-64 mt-4 md:mt-0">
           <select id="materielSelect" class="w-full p-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 text-gray-700 bg-gray-50">
-            <option disabled selected class="text-gray-400">Choisir un matériel</option>
+            <option disabled selected class="text-gray-400">Choisir une  Categories</option>
             @foreach (collect($Stocks)->pluck('stock_materiel')->unique() as $materiel)
               <option value="{{ $materiel }}" class="text-gray-700">{{ $materiel }}</option>
             @endforeach

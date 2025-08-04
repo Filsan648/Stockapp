@@ -87,7 +87,7 @@
 
   <div class=" mt-11">
   <h2>Liste des commandes </h2>
-  <div class="overflow-x-auto">
+  <div class="">
               <table class="min-w-full divide-y divide-gray-200">
                 <thead class="bg-gray-50">
                   <tr>

@@ -1,61 +1,79 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# 📦 StockApp
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+**StockApp** est une application de gestion de stock intuitive développée avec Laravel. Elle permet de gérer efficacement le matériel informatique au sein d'une organisation.
 
-## About Laravel
+![Capture d’écran](https://raw.githubusercontent.com/Filsan648/Stockapp/main/public/images/stockapp-dashboard.png)
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+---
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## 🚀 Fonctionnalités principales
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+- 🧾 Enregistrement de nouveaux matériels (nom, quantité, image, catégorie…)
+- 🗃️ Gestion des catégories de matériels
+- 📊 Tableau de bord avec résumé des équipements
+- 🔍 Recherche de matériel par nom ou catégorie
+- 🖼️ Ajout d'image pour chaque matériel
+- 📝 Formulaires simples et épurés avec Tailwind CSS
 
-## Learning Laravel
+---
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## 🛠️ Technologies utilisées
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+- ⚙️ **Laravel 10**
+- 🎨 **Tailwind CSS**
+- 🗃️ **MySQL** (ou MariaDB)
+- 🌐 **Blade** (moteur de templates Laravel)
+- 🖼️ **HTML/CSS**
+- 🛡️ Authentification Laravel (à ajouter pour la production)
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+---
 
-## Laravel Sponsors
+## 🔍 Vue d'ensemble détaillée du fonctionnement de l'application
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+### 🔐 Page de connexion  
+Interface de connexion sécurisée permettant uniquement aux utilisateurs autorisés d'accéder au système.  
+![login](public/readmeImage/login.png)
 
-### Premium Partners
+### 🛠️ Tableau de bord administrateur  
+Panneau central pour gérer le stock, les utilisateurs et les demandes entrantes.  
+![dashboard](public/readmeImage/dahboard.png)
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+### ➕ Ajouter de nouveaux matériels  
+Section permettant d'enregistrer un nouveau matériel avec des détails tels que le nom, la catégorie, la quantité et l'image.  
+![items](public/readmeImage/item.png)
 
-## Contributing
+### 🔄 Ajouter un matériel existant ou l’attribuer à un employé  
+Les utilisateurs peuvent augmenter la quantité d’un matériel déjà existant ou l’attribuer à un employé avec un suivi approprié.  
+![matériel existant](public/readmeImage/127.0.0.1_8000_stock.png)
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+### 📦 Commandes et historique des commandes  
+Suivi de toutes les commandes effectuées, avec leur statut (en attente, acceptée, rejetée) et historique complet.  
+![commandes](public/readmeImage/demandecomande.png)
 
-## Code of Conduct
+### 🧾 Historique du stock  
+Suivi de toutes les entrées et sorties de stock dans le temps pour assurer transparence et contrôle.  
+![stock](public/readmeImage/history.png)
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+### 👥 Affectation d'employés à un stock  
+Un utilisateur peut ajouter un nouvel employé et l'affecter à un stock dont il est responsable.  
+![employés](public/readmeImage/127.0.0.1_8000_employer.png)
 
-## Security Vulnerabilities
+### 🧑‍💼 Création d'utilisateurs et attribution de rôles  
+Les administrateurs peuvent créer de nouveaux comptes utilisateurs et leur attribuer des rôles adaptés (ex. : visualiseur, gestionnaire de stock).  
+![utilisateurs](public/readmeImage/127.0.0.1_8000_users.png)
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+### ✅❌ Approbation ou rejet de commandes  
+Les administrateurs peuvent accepter ou rejeter les demandes de commande selon les besoins et les disponibilités.  
+![approbation](public/readmeImage/127.0.0.1_8000_Commandes.png)
 
-## License
+---
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+## 📂 Installation locale
+
+### Prérequis
+
+- PHP >= 8.1
+- Composer
+- Node.js & npm
+- MySQL ou MariaDB
+

@@ -16,6 +16,8 @@ class Employer extends Model
        'name',
        'fonction',
        'Departement',
+       'Responsable',
+       'categorie'
 
     ];
 }
