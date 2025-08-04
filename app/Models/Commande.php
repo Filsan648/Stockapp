@@ -18,7 +18,8 @@ class Commande extends Model
        'date',
        'NommItem',
        'Description',
-       'status'
+       'status',
+       'quantite'
 
     ];
 }

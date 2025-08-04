@@ -25,12 +25,14 @@
 
     <!-- Navigation -->
     <nav id="sidebarMenu" class="px-4 py-6 space-y-3 text-sm text-gray-700 bg-violet-700 w-1/3 mt-2  rounded-3xl   ">
+        @if(Auth::check() && Auth::user()->isadmin == 1)
       <a href="{{ route('dashboard') }}"
          class="flex items-center gap-3 rounded-lg px-3 py-2 transition
          {{ request()->routeIs('dashboard') ? 'active-link' : '' }}">
         <img src="image/icons/applications.png" alt="Dashboard" width="15" height="15"  class="text-white">
 
       </a>
+      @endif
 
       <a href="{{ route('materiel') }}"
          class="flex items-center gap-3 rounded-lg px-3 py-2 transition
@@ -55,26 +57,29 @@
          class="flex items-center gap-3 rounded-lg px-3 py-2 transition
          {{ request()->routeIs('HistoriqueStock') ? 'active-link' : '' }}">
         <img src="image/icons/time-past.svg" class=" invert" alt="Historique de stock" width="15" height="15">
-
       </a>
- <a href="{{ route('employer') }}"
+   <a href="{{ route('employer') }}"
          class="flex items-center gap-3 rounded-lg px-3 py-2 transition
          {{ request()->routeIs('employer') ? 'active-link' : '' }}">
         <img src="image/icons/mallette.png" alt="Employés" width="15" height="15">
 
       </a>
+      @if(Auth::check() && Auth::user()->isadmin == 1)
       <a href="{{ route('users') }}"
          class="flex items-center gap-3 rounded-lg px-3 py-2 transition
          {{ request()->routeIs('users') ? 'active-link' : '' }}">
         <img src="image/icons/user-add.svg" class=" invert" alt="user" width="15" height="15">
 
       </a>
+      @endif
+      @if(Auth::check() && Auth::user()->isadmin == 1)
  <a href="{{ route('Commandes') }}"
          class="flex items-center gap-3 rounded-lg px-3 py-2 transition
          {{ request()->routeIs('Commandes') ? 'active-link' : '' }}">
         <img src="image/icons/cloche.png"   alt="Paramètres" width="15" height="15">
 
       </a>
+      @endif
       <a href="{{ route('Setting') }}"
          class="flex items-center gap-3 rounded-lg px-3 py-2 transition
          {{ request()->routeIs('Setting') ? 'active-link' : '' }}">

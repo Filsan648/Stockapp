@@ -74,7 +74,8 @@
 
             </th>
               <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Employé</th>
-
+<th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Categorie du produit</th>
+<th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Stock</th>
               <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider relative group cursor-pointer">Date
                  <div class="absolute m-4 left-0 mt-2 hidden group-hover:block z-10 bg-white border rounded shadow-lg w-20 p-2">
     <ul class="text-xs text-gray-700 divide-y divide-gray-200">
@@ -108,6 +109,8 @@
               <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700"> @if($stoc->nom_employer == "null") --
                 @else
                 {{$stoc->nom_employer}} @endif</td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{{$stoc->categorie}}</td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{{$stoc->stock}}</td>
               <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{{$stoc->date}}</td>
             </tr>
             @endforeach

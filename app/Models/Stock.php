@@ -18,6 +18,7 @@ class Stock extends Model
        'materiel',
        'nom_employer',
        'quantite',
-       'stock'
+       'stock',
+       'categorie'
     ];
 }

@@ -93,8 +93,11 @@
                   <tr>
                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Numero de la commande </th>
                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nom de materiel</th>
+                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Quantite commandée</th>
                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Envoiyer a </th>
                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Description</th>
+                                      <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
+
                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
 
                 </tr>
@@ -105,9 +108,10 @@
                   <tr class="hover:bg-gray-50 transition duration-150 animate-fade-in">
                     <td class="px-6 py-4 whitespace-nowrap font-medium text-gray-900">{{$commande->id}}</td>
                     <td class="px-6 py-4 whitespace-nowrap text-gray-500">{{$commande->NommItem}} </td>
+                  <td class="px-6 py-4 whitespace-nowrap text-gray-500">{{$commande->quantite}} </td>
                     <td class="px-6 py-4 whitespace-nowrap text-gray-500">{{$commande->recepteur}} </td>
                     <td class="px-6 py-4 whitespace-nowrap text-gray-500">{{$commande->Description}} </td>
-
+<td class="px-6 py-4 whitespace-nowrap text-gray-500">{{$commande->date}} </td>
                     <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
                       <div class="flex flex-row space-x-1">
                          @php

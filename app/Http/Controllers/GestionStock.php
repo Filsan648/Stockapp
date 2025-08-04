@@ -22,13 +22,15 @@ class GestionStock extends Controller
 
  }
  public function materiel_get () {
+
     $materiel=Materiel::get();
     return (view('app.materielpage',compact("materiel")));
 
  }
 
  public function employer_get () {
-    $employer=Employer::get();
+    $responsable=Auth::user();
+    $employer=Employer::where("Responsable",$responsable->name)->get();
     return (view('app.employerpage',compact("employer")));
 
  }
@@ -59,24 +61,29 @@ class GestionStock extends Controller
     }
 
    public function employer_post(Request $request) {
-
+$responsable=Auth::user();
     Employer::create(
       [
         "name"=>$request->nom,
         "fonction"=>$request->fonction,
-        "Departement"=>$request->departement
+        "Departement"=>$request->departement,
+        "Responsable"=>$responsable->name,
+
     ]);
     return redirect()->back()->with('success', 'Sortie de stock enregistrée avec succès.');
    }
    public function stock_post(Request $request) {
-
+$Stock=Auth::user();
+$materiel=Materiel::where("materiel",$request->materiel)->value('categorie');
      Stock::create(
         [
           "typestock"=>"entree",
           "date"=>$request->date,
           "materiel"=>$request->materiel,
           "nom_employer"=>"null",
-          "quantite"=>$request->nombre_ajout
+          "quantite"=>$request->nombre_ajout,
+          "stock"=>$Stock->stockatribue,
+          "categorie"=>$materiel,
       ]);
      $materiel= Materiel::where('materiel', $request->materiel)->pluck('quantite')->first();
 
@@ -89,6 +96,8 @@ class GestionStock extends Controller
 
    }
    public function stock_post_sorti(Request $request)  {
+    $Stock=Auth::user();
+     $materiele=Materiel::where("materiel",$request->materiel)->value('categorie');
     $materiel= Materiel::where('materiel', $request->materiel)->pluck('quantite')->first();
     if ($materiel >= $request->nombre_sortie) {
 
@@ -97,7 +106,9 @@ class GestionStock extends Controller
             "date"          => $request->date,
             "materiel"      => $request->materiel,
             "nom_employer"  => $request->client,
-            "quantite"      => $request->nombre_sortie
+            "quantite"      => $request->nombre_sortie,
+            "stock"=>$Stock->stockatribue,
+            "categorie"=>$materiele,
         ]);
 
         Materiel::where('materiel', $request->materiel)
@@ -179,27 +190,48 @@ foreach( $employers as $employer){
 }
 
 
-//chart4 employer par moi stock
+//chart4 categorie par moi stock
 
 $monthsstocks= Stock:: selectRaw('DISTINCT DATE_FORMAT(date, "%M") as month') // Sélectionner uniquement le mois
   ->pluck('month');
 
 foreach ($monthsstocks as $monthsstock ){
     $stock_materiels=stock:: whereRaw('DATE_FORMAT(Date, "%M") = ?', $monthsstock)
-    ->select('materiel') // on sélectionne la colonne
+    ->select('categorie') // on sélectionne la colonne
     ->distinct()
-    ->pluck('materiel');
+    ->pluck('categorie');
 
     foreach ($stock_materiels as $stock_materiel ){
-        $stock_quantitesorti=stock::where('typestock', 'sorti')->where('materiel',$stock_materiel) ->whereRaw('DATE_FORMAT(Date, "%M") = ?', $monthsstock)
+        $stock_quantitesorti=stock::where('typestock', 'sorti')->where('categorie',$stock_materiel) ->whereRaw('DATE_FORMAT(Date, "%M") = ?', $monthsstock)
         ->sum('quantite');
-        $stock_quantiteentree=stock::where('typestock', 'entree')->where('materiel',$stock_materiel)-> whereRaw('DATE_FORMAT(Date, "%M") = ?', $monthsstock)
+        $stock_quantiteentree=stock::where('typestock', 'entree')->where('categorie',$stock_materiel)-> whereRaw('DATE_FORMAT(Date, "%M") = ?', $monthsstock)
         ->sum('quantite');
         $Stocks[]=['monthsstock' => $monthsstock, 'stock_materiel' => $stock_materiel,'stock_quantitesorti'=>$stock_quantitesorti,'stock_quantiteentree'=>$stock_quantiteentree];
 
     }
 
 }
+
+//Chart 5
+
+foreach ($monthsstocks as $monthsstock ){
+    $Typestock=stock:: whereRaw('DATE_FORMAT(Date, "%M") = ?', $monthsstock)
+    ->select('stock') // on sélectionne la colonne
+    ->distinct()
+    ->pluck('stock');
+
+    foreach ($Typestock as $stock_materiel ){
+        $stock_quantitesorti=stock::where('typestock', 'sorti')->where('stock',$stock_materiel) ->whereRaw('DATE_FORMAT(Date, "%M") = ?', $monthsstock)
+        ->sum('quantite');
+        $stock_quantiteentree=stock::where('typestock', 'entree')->where('stock',$stock_materiel)-> whereRaw('DATE_FORMAT(Date, "%M") = ?', $monthsstock)
+        ->sum('quantite');
+        $Typestocks[]=['monthsstock' => $monthsstock, 'stock_materiel' => $stock_materiel,'stock_quantitesorti'=>$stock_quantitesorti,'stock_quantiteentree'=>$stock_quantiteentree];
+
+    }
+
+}
+
+
 //Count
 $Employer=Employer::count();
 $Materiel=Materiel::count();
@@ -209,7 +241,9 @@ foreach($materiel_stock as $materiel ){
   $Stock=$Stock+$materiel['quantite'];
 }
 
-return(view('app.page',compact('Stock','Materiel','Employer','materiel_stock','stock_entree','stocksorti','employer_quantite','Stocks')));
+
+
+return(view('app.page',compact('Stock','Materiel','Typestocks' ,'Employer','materiel_stock','stock_entree','stocksorti','employer_quantite','Stocks')));
 
 }
 function Commande(){
@@ -222,18 +256,18 @@ $Commandes=Commande::where('expediteur', $NameUser)->get();
 
 }
 function Commandepost(Request $request){
-
+  $NameUser= Auth::user()->name;
 $recepteur=User::where('id',$request->recepteur)->value('name');
 $date = Carbon::now();
  Commande::create([
-       'expediteur'=>"Filsan" ,
+       'expediteur'=>$NameUser ,
        'recepteur'=>$recepteur,
        'date'=> $date,
        'NommItem'=>$request->Nom ,
        'Description'=> $request->Description ,
-
-
+       "quantite"=>$request->Quantite
 ]);
+
 
      return redirect()->back()->with('success', 'Sortie de stock enregistrée avec succès.');
 }
@@ -284,7 +318,6 @@ function Commandes(){
     $NameUser= Auth::user()->name;
 $Commandes=Commande::where('recepteur', $NameUser)->get();
     return(view('app.notification',compact('Commandes')));
-
 }
 function Commandespost(Request $request,$id){
   $commande = Commande::findOrFail($id);
@@ -295,7 +328,6 @@ return redirect()->back()->with('success', '');
 function Setting(){
  $user = Auth::user(); // récupère l'utilisateur connecté
     return view('app.parametre', compact('user'));
-
 }
 }
 
