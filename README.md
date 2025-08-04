@@ -1,13 +1,13 @@
 # 📦 StockApp
 
-**StockApp** est une application de gestion de stock intuitive développée avec Laravel. Elle permet de gérer efficacement le matériel informatique au sein d'une organisation.
+**StockApp** est une application de gestion de stock intuitive développée avec Laravel. Elle permet de gérer efficacement les diferents stocks   au sein d'une organisation.
 
 ![Capture d’écran](https://raw.githubusercontent.com/Filsan648/Stockapp/main/public/images/stockapp-dashboard.png)
 
 ---
 
 ## 🚀 Fonctionnalités principales
-
+- 🗃️ Menus différenciés selon le type d'utilisateur : administrateur ou utilisateur standard
 - 🧾 Enregistrement de nouveaux matériels (nom, quantité, image, catégorie…)
 - 🗃️ Gestion des catégories de matériels
 - 📊 Tableau de bord avec résumé des équipements
@@ -68,12 +68,7 @@ Les administrateurs peuvent accepter ou rejeter les demandes de commande selon l
 
 ---
 
-## 📂 Installation locale
+## Auteur : Filsan
 
-### Prérequis
 
-- PHP >= 8.1
-- Composer
-- Node.js & npm
-- MySQL ou MariaDB
 
